@@ -6,6 +6,16 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 # TODO - only LSTM add support for type GRU
 class RNNEncoder(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers=1, bidirectional=True, dropout=0.3, type='LSTM', **kwargs):
+        """
+            RNN encoder layer.
+            Args:
+                input_size int: size of input data (i.e. dimension of embeddings)
+                hidden_size int: size of hidden state in RNN
+                num_layers int: number of layers in RNN
+                bidirectional bool: if True RNN will be bidirectional
+                dropout float: value of dropout - between layers and also dropout of output
+                type str: TODO support for GRU
+            """
         super(RNNEncoder, self).__init__()
 
         self.bidirectional = bidirectional
