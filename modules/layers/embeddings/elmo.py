@@ -11,13 +11,17 @@ class ELMo(nn.Module):
     """
     Proxy for ELMo embeddings.
     https://github.com/allenai/allennlp/blob/master/tutorials/how_to/elmo.md
+    Args:
+        embedding_dropout float: value of dropout
+        options_file str: path for local elmo options file
+        weights_file str: path for local elmo wights file
     """
 
-    def __init__(self, embedding_dropout=0., num_layers=1, options_file=default_options_file, weights_file=default_weights_file, **kwargs):
+    def __init__(self, embedding_dropout=0., options_file=default_options_file, weights_file=default_weights_file, **kwargs):
         super(ELMo, self).__init__()
 
         self.dropout = nn.Dropout(p=embedding_dropout)
-        self.elmo = Elmo(options_file, weights_file, num_output_representations=num_layers).to(device)
+        self.elmo = Elmo(options_file, weights_file, num_output_representations=1).to(device)
         self.dim = self.elmo.get_output_dim()
 
     def forward(self, sentences):

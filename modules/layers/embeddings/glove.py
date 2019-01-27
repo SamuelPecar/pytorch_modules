@@ -10,6 +10,12 @@ from config import device
 class GloVe(nn.Module):
     """
     Proxy for GloVe embeddings.
+    Args:
+        vocab Vocabulary: vocabulary class of input dataset
+        file_name str: file of pretrained weigths
+        trainable bool: path for local elmo wights file
+        embedding_dim int: dimension of embeddings
+        embedding_dropout float: value of dropout
     """
 
     def __init__(self, vocab, file_name=None, trainable=False, embedding_dim=300, embedding_dropout=.0, **kwargs):

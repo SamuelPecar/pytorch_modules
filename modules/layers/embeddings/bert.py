@@ -14,6 +14,9 @@ from config import device
 class BERT(nn.Module):
     """
     Proxy for Bert embeddings.
+    Args:
+        embedding_dropout float: value of dropout
+        type str: list of training labels
     """
 
     def __init__(self, embedding_dropout=0.5, type='bert-large-uncased', **kwargs):
