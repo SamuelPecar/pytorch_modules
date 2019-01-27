@@ -15,7 +15,7 @@ Repository contains modules to build neural network in [PyTorch](https://pytorch
 
 TODO
     
-#TODOs
+# TODOs
 
 + self-attention layer
 + transformer encoder
