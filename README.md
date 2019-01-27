@@ -10,10 +10,16 @@ Repository contains modules to build neural network in [PyTorch](https://pytorch
     + common - common modules, also contains modules for preprocessing and different kind of utils
     + datasets - modules for datasets, i.e. classification, language model, etc.
     + layers - layer modules, such as attention, embeddings, encoders
-    
+
+# Published papers
+
+TODO
     
 #TODOs
 
-+ filling directories
++ self-attention layer
++ transformer encoder
++ models - language model, rnn classifier, transformer classifier
++ examples
 + documentation
 + pip module 
