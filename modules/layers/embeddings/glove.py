@@ -8,6 +8,10 @@ from config import device
 
 
 class GloVe(nn.Module):
+    """
+    Proxy for GloVe embeddings.
+    """
+
     def __init__(self, vocab, file_name=None, trainable=False, embedding_dim=300, embedding_dropout=.0, **kwargs):
         super(GloVe, self).__init__()
 
