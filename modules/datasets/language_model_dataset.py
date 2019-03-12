@@ -21,6 +21,6 @@ class LanguageModelDataset(BasicDataset):
         inputs = self.data[index]
         targets = inputs[1:]
 
-        length = len(self.data[index])
+        length = len(self.data[index]) - 1
 
-        return inputs, targets, length
+        return inputs[:-1], targets, length

@@ -1,7 +1,7 @@
 from torch.utils.data.dataset import Dataset
 from tqdm import tqdm
 
-from ..common.vocabulary import Vocabulary
+from ..common import Vocabulary
 
 
 class BasicDataset(Dataset):
