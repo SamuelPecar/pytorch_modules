@@ -7,7 +7,9 @@ class Vocabulary(object):
         self.word2idx = {}
         self.idx2word = {}
         self.stats = {}
-        self.idx = 1
+
+        self.idx = 0
+        self.add_word('<PAD>')
 
     def process_tokens(self, text):
         for token in text:
@@ -23,4 +25,4 @@ class Vocabulary(object):
             self.stats[word] += 1
 
     def __len__(self):
-        return len(self.word2idx)
+        return len(self.word2idx) + 1
