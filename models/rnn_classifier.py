@@ -12,7 +12,7 @@ class RNNClassifier(nn.Module):
     def __init__(self, embed_params, encoder_params, output_dim=2, dropout=0., **kwargs):
         super(RNNClassifier, self).__init__()
 
-        self.embeddings = ElmoEmbeddings(**embed_params)
+        self.embeddings = ELMo(**embed_params)
 
         self.encoder = RNNEncoder(input_size=self.embeddings.dim, **encoder_params)
 

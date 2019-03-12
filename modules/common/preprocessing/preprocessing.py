@@ -19,7 +19,7 @@ class Preprocessing(object):
         self.escape_punctuation = kwargs.get('escape_punctuation', False)
         self.negation = kwargs.get('negation', False)
 
-    def process_test(self, text):
+    def process_text(self, text):
 
         tokens = tokenizer.tokenize(text)
         text = ' '.join([t.text for t in tokens])
