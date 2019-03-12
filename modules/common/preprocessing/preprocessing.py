@@ -37,7 +37,7 @@ class Preprocessing(object):
         if self.negation:
             text = self.word_negation(text)
 
-        return text
+        return text.split()
 
     @staticmethod
     def char_cleaning(text):
