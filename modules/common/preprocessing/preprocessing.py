@@ -12,12 +12,12 @@ class Preprocessing(object):
     """
 
     def __init__(self, **kwargs):
-        self.char_clean = kwargs.get('char_cleaning', True)
-        self.char_normalize = kwargs.get('char_normalize', True)
-        self.word_normalize = kwargs.get('word_normalization', True)
-        self.expand = kwargs.get('expand', True)
-        self.escape_punctuation = kwargs.get('escape_punctuation', True)
-        self.negation = kwargs.get('negation', True)
+        self.char_clean = kwargs.get('char_cleaning', False)
+        self.char_normalize = kwargs.get('char_normalize', False)
+        self.word_normalize = kwargs.get('word_normalization', False)
+        self.expand = kwargs.get('expand', False)
+        self.escape_punctuation = kwargs.get('escape_punctuation', False)
+        self.negation = kwargs.get('negation', False)
 
     def process_test(self, text):
 
