@@ -41,5 +41,5 @@ class Vocabulary(object):
             sorted_word2idx[key] = sorted_idx
             sorted_idx += 1
 
-        self.word2idx = sorted_idx
-        self.idx2word = {v: k for k, v in sorted_idx.items()}
+        self.word2idx = sorted_word2idx
+        self.idx2word = {v: k for k, v in sorted_word2idx.items()}
