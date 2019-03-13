@@ -30,7 +30,6 @@ class RNNClassifier(nn.Module):
         output_encoder, hidden = self.encoder(sort(embedded), hidden=None, mask=sort(mask), lengths=sorted_lengths)
         representations, attentions = self.attention(output_encoder, mask=sort(mask), lengths=sorted_lengths)
 
-        output = self.hidden2out(representations)
-        output = self.activation(output)
+        output = self.hidden2out(unsort(representations))
 
-        return unsort(output)
+        return self.activation(output)

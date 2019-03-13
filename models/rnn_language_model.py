@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
@@ -16,6 +17,8 @@ class RNNLanguageModel(nn.Module):
 
         self.decoder = nn.Linear(self.encoder.feature_size, len(vocab))
 
+        self.activation = torch.nn.LogSoftmax(dim=1)
+
     def forward(self, input, mask, hidden, lengths):
         sorted_lengths, sort, unsort = sort_by_lengths(lengths)
 
@@ -27,4 +30,4 @@ class RNNLanguageModel(nn.Module):
 
         decoded = self.decoder(output.view(output.size(0) * output.size(1), output.size(2)))
 
-        return decoded.view(output.size(0), output.size(1), decoded.size(1)), hidden
+        return self.activation(decoded.view(output.size(0), output.size(1), decoded.size(1))), hidden
