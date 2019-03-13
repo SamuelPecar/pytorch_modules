@@ -5,6 +5,7 @@ from allennlp.data.tokenizers.word_tokenizer import WordTokenizer
 
 tokenizer = WordTokenizer()
 
+
 # TODO - extend settings and add emoji end emoticon processing
 class Preprocessing(object):
     """
@@ -18,6 +19,13 @@ class Preprocessing(object):
         self.expand = kwargs.get('expand', False)
         self.escape_punctuation = kwargs.get('escape_punctuation', False)
         self.negation = kwargs.get('negation', False)
+
+    def split_text(self, text):
+        return text.split()
+
+    def tokenize(self, text):
+        tokens = tokenizer.tokenize(text)
+        return [t.text for t in tokens]
 
     def process_text(self, text):
 
