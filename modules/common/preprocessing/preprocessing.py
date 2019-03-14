@@ -3,7 +3,7 @@ from .regex_expressions import *
 
 from allennlp.data.tokenizers.word_tokenizer import WordTokenizer
 
-tokenizer = WordTokenizer()
+tokenizer = WordTokenizer(end_tokens=['<EOS>'])
 
 
 # TODO - extend settings and add emoji end emoticon processing
