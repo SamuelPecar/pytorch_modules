@@ -1,2 +1,1 @@
-from .vocabulary import Vocabulary
-from .preprocessing import Preprocessing
+from .vocabulary import Vocabulary, ConcatVocabulary
