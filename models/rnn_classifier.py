@@ -13,14 +13,9 @@ class RNNClassifier(nn.Module):
         super(RNNClassifier, self).__init__()
 
         self.embeddings = ELMo(**embed_params)
-
         self.encoder = RNNEncoder(input_size=self.embeddings.dim, **encoder_params)
-
         self.attention = SelfAttention(attention_size=self.encoder.feature_size, dropout=dropout)
-
         self.hidden2out = nn.Linear(self.encoder.feature_size, output_dim)
-
-        self.activation = torch.nn.LogSoftmax(dim=1)
 
     def forward(self, x, lengths):
         sorted_lengths, sort, unsort = sort_by_lengths(lengths)
@@ -32,4 +27,4 @@ class RNNClassifier(nn.Module):
 
         output = self.hidden2out(unsort(representations))
 
-        return self.activation(output)
+        return output
