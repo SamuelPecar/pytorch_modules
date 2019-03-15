@@ -17,14 +17,14 @@ class RNNClassifier(nn.Module):
         self.attention = SelfAttention(attention_size=self.encoder.feature_size, dropout=dropout)
         self.hidden2out = nn.Linear(self.encoder.feature_size, output_dim)
 
-    def forward(self, x, lengths):
+    def forward(self, inputs, mask, hidden, lengths):
         sorted_lengths, sort, unsort = sort_by_lengths(lengths)
 
-        embedded, mask = self.embeddings(x)
+        embedded, mask = self.embeddings(inputs)
 
         output_encoder, hidden = self.encoder(sort(embedded), hidden=None, mask=sort(mask), lengths=sorted_lengths)
         representations, attentions = self.attention(output_encoder, mask=sort(mask), lengths=sorted_lengths)
 
         output = self.hidden2out(unsort(representations))
 
-        return output
+        return output, hidden

@@ -16,10 +16,10 @@ class RNNLanguageModel(nn.Module):
         self.encoder = RNNEncoder(input_size=self.embeddings.embedding_dim, **encoder_params)
         self.decoder = nn.Linear(self.encoder.feature_size, len(vocab))
 
-    def forward(self, input, mask, hidden, lengths):
+    def forward(self, inputs, mask, hidden, lengths):
         sorted_lengths, sort, unsort = sort_by_lengths(lengths)
 
-        embedded = self.embeddings(input)
+        embedded = self.embeddings(inputs)
 
         output, hidden = self.encoder(sort(embedded), hidden, sort(mask), lengths=sorted_lengths)
 
