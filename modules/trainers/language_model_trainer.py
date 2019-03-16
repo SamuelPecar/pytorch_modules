@@ -65,17 +65,17 @@ class LanguageModelTrainer(Trainer):
     def evaluate_model(self, data):
         epoch_loss = 0
         self.model.eval()
-        self.hidden = self.model.encoder.init_hidden(batch_size)
+        self.hidden = self.model.encoder.init_hidden(self.batch_size)
 
         with torch.no_grad():
-            for i_batch, batch in enumerate(tqdm(data_source), 1):
+            for i_batch, batch in enumerate(tqdm(data), 1):
                 self.hidden = repackage_hidden(self.hidden)
 
                 outputs, targets, loss = self.__process_batch(batch)
 
                 epoch_loss += loss.item()
 
-        return total_loss / i_batch
+        return epoch_loss / i_batch
 
     def __process_batch(self, batch):
 
