@@ -53,9 +53,9 @@ class ClassificationTrainer(Trainer):
 
                 epoch_loss += loss.item()
 
-                predictions = np.array(torch.cat(predictions, dim=0).cpu())
-                predicted = np.argmax(predictions, 1)
-                labels = np.array(torch.cat(gold_labels, dim=0).cpu())
+            predictions = np.array(torch.cat(predictions, dim=0).cpu())
+            predicted = np.argmax(predictions, 1)
+            labels = np.array(torch.cat(gold_labels, dim=0).cpu())
 
         return epoch_loss / i_batch, predicted, predictions, labels
 
