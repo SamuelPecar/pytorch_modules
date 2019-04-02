@@ -1,3 +1,3 @@
 from .elmo import ELMo
-from .glove import GloVe
+from .lookup import LookUp
 from .bert import BERT

@@ -1,2 +1,2 @@
-from .embeddings import BERT, ELMo, GloVe
+from .embeddings import BERT, ELMo, LookUp
 from .encoders import RNNEncoder
