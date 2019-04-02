@@ -9,10 +9,10 @@ from modules.layers.embeddings import ELMo
 
 
 class RNNClassifier(nn.Module):
-    def __init__(self, embed_params, encoder_params, output_dim=2, dropout=0., **kwargs):
+    def __init__(self, embeddings, encoder_params, output_dim=2, dropout=0., **kwargs):
         super(RNNClassifier, self).__init__()
 
-        self.embeddings = ELMo(**embed_params)
+        self.embeddings = embeddings
         self.encoder = RNNEncoder(input_size=self.embeddings.dim, **encoder_params)
         self.attention = SelfAttention(attention_size=self.encoder.feature_size, dropout=dropout)
         self.hidden2out = nn.Linear(self.encoder.feature_size, output_dim)

@@ -1,2 +1,3 @@
 from .rnn_language_model import RNNLanguageModel
 from .rnn_classifier import RNNClassifier
+from .transformer_classifier import TransformerClassifier

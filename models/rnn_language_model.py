@@ -7,19 +7,19 @@ from modules.common.utils import sort_by_lengths
 
 
 class RNNLanguageModel(nn.Module):
-    def __init__(self, encoder_params, vocab):
+    def __init__(self, embeddings, encoder_params, vocab):
         super(RNNLanguageModel, self).__init__()
 
         self.dropout = nn.Dropout(p=encoder_params['dropout'])
 
-        self.embeddings = nn.Embedding(num_embeddings=len(vocab), embedding_dim=200)
+        self.embeddings = embeddings
         self.encoder = RNNEncoder(input_size=self.embeddings.embedding_dim, **encoder_params)
         self.decoder = nn.Linear(self.encoder.feature_size, len(vocab))
 
     def forward(self, inputs, mask, hidden, lengths):
         sorted_lengths, sort, unsort = sort_by_lengths(lengths)
 
-        embedded = self.embeddings(inputs)
+        embedded, mask = self.embeddings(inputs)
 
         output, hidden = self.encoder(sort(embedded), hidden, sort(mask), lengths=sorted_lengths)
 
