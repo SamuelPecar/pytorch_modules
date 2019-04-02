@@ -46,9 +46,9 @@ class ClassificationTrainer(Trainer):
             for i_batch, batch in enumerate(tqdm(data), 1):
                 outputs, targets, loss = self.__process_batch(batch)
 
-                softmax_output = F.softmax(outputs, dim=1)
+                outputs = F.softmax(outputs, dim=1)
 
-                predictions.append(softmax_output)
+                predictions.append(outputs)
                 gold_labels.append(targets)
 
                 epoch_loss += loss.item()

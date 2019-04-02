@@ -81,10 +81,9 @@ class LanguageModelTrainer(Trainer):
 
         inputs, targets, lengths = batch
 
-        inputs, mask = vectorize(inputs, self.vocab.word2idx, self.device)
         targets, _ = vectorize(targets, self.vocab.word2idx, self.device)
 
-        outputs, self.hidden = self.model(inputs=inputs, mask=mask, hidden=self.hidden, lengths=lengths.to(self.device))
+        outputs, self.hidden = self.model(inputs=inputs, mask=None, hidden=self.hidden, lengths=lengths.to(self.device))
 
         if type(self.criterion) == torch.nn.modules.loss.NLLLoss:
             outputs = F.log_softmax(outputs, dim=-1)
