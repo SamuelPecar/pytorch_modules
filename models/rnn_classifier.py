@@ -13,7 +13,7 @@ class RNNClassifier(nn.Module):
         super(RNNClassifier, self).__init__()
 
         self.embeddings = embeddings
-        self.encoder = RNNEncoder(input_size=self.embeddings.dim, **encoder_params)
+        self.encoder = RNNEncoder(input_size=self.embeddings.embedding_dim, **encoder_params)
         self.attention = SelfAttention(attention_size=self.encoder.feature_size, dropout=dropout)
         self.hidden2out = nn.Linear(self.encoder.feature_size, output_dim)
 
@@ -21,7 +21,6 @@ class RNNClassifier(nn.Module):
         sorted_lengths, sort, unsort = sort_by_lengths(lengths)
 
         embedded, mask = self.embeddings(inputs)
-
         output_encoder, hidden = self.encoder(sort(embedded), hidden=None, mask=sort(mask), lengths=sorted_lengths)
         representations, attentions = self.attention(output_encoder, mask=sort(mask), lengths=sorted_lengths)
 

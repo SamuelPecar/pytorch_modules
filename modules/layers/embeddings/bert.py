@@ -32,7 +32,7 @@ class BERT(nn.Module):
 
         self.dropout = nn.Dropout(p=embedding_dropout)
 
-        self.dim = self.bert_embedder.get_output_dim()
+        self.embedding_dim = self.bert_embedder.get_output_dim()
 
     def forward(self, sentences):
         embeddings = []
