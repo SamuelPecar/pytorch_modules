@@ -3,7 +3,11 @@ import torch.nn as nn
 from elmoformanylangs import Embedder
 from torch.nn.utils.rnn import pad_sequence
 
-from config import device
+try:
+    from config import device
+except:
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 
 class ELMoForManyLangs(nn.Module):
     """

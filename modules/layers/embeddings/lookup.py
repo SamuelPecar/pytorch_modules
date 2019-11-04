@@ -4,7 +4,12 @@ import numpy as np
 
 from ...common import Vocabulary
 
-from config import device
+try:
+    from config import device
+except:
+    import torch
+
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
 class LookUp(nn.Module):

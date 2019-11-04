@@ -1,7 +1,11 @@
 import torch.nn as nn
 from allennlp.modules.elmo import Elmo, batch_to_ids
 
-from config import device
+try:
+    from config import device
+except:
+    import torch
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 default_options_file = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_options.json"
 default_weights_file = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5"
