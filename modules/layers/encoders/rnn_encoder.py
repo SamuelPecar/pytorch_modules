@@ -5,7 +5,7 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
 # TODO - only LSTM add support for type GRU
 class RNNEncoder(nn.Module):
-    def __init__(self, input_size, hidden_size, num_layers=1, bidirectional=True, dropout=0.3, type='LSTM', **kwargs):
+    def __init__(self, input_size, hidden_size, num_layers=1, bidirectional=True, dropout=0.3, type='LSTM', total_length=None, **kwargs):
         """
             RNN encoder layer.
             Args:
@@ -21,6 +21,7 @@ class RNNEncoder(nn.Module):
         self.bidirectional = bidirectional
         self.num_layers = num_layers
         self.num_directions = 2 if self.bidirectional else 1
+        self.total_length = total_length
 
         self.hidden_size = hidden_size
         self.feature_size = self.num_directions * hidden_size
@@ -39,10 +40,10 @@ class RNNEncoder(nn.Module):
                 weight.new_zeros(self.num_layers * self.num_directions, batch_size, self.hidden_size))
 
     def forward(self, embedded, hidden, mask, lengths):
-        packed_embedded = pack_padded_sequence(embedded, lengths, batch_first=True)
+        packed_embedded = pack_padded_sequence(embedded, lengths, batch_first=True, enforce_sorted=False)
 
         lstm_output, lstm_hidden = self.encoder(packed_embedded, hidden)
 
-        padded_output, _ = pad_packed_sequence(lstm_output, batch_first=True)
+        padded_output, _ = pad_packed_sequence(lstm_output, batch_first=True, total_length=self.total_length)
 
         return self.dropout(padded_output), lstm_hidden
