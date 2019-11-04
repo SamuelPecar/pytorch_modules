@@ -5,7 +5,6 @@ from modules.common.utils import sort_by_lengths
 
 from modules.layers.encoders.rnn_encoder import RNNEncoder
 from modules.layers.attention import SelfAttention
-from modules.layers.embeddings import ELMo
 
 
 class RNNClassifier(nn.Module):
