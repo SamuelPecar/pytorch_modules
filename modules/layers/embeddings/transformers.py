@@ -27,6 +27,7 @@ class TransformerEmbeddings(nn.Module):
         self.transformer, self.tokenizer = self.get_model(model_name, weights_shortcut)
         # TODO set for bert large
         self.embedding_dim = 1024
+        # self.embedding_dim = 768
 
     def get_model(self, model_name, pretrained_weights):
         MODELS = {"bert": (BertModel, BertTokenizer),
@@ -49,20 +50,20 @@ class TransformerEmbeddings(nn.Module):
 
     def tokenize(self, sentences, joined_tokens=False):
         sentences_ = []
+        lengths = []
 
         for sentence in sentences:
             if not joined_tokens:
                 sentence = " ".join(sentence)
             tokenized_sentence = self.tokenizer.encode(sentence, add_special_tokens=True, return_tensors='pt')[0]
             sentences_.append(tokenized_sentence)
+            lengths.append(tokenized_sentence.size()[0])
 
-        return pad_sequence(sentences_, batch_first=True)
+        return pad_sequence(sentences_, batch_first=True).to(device), lengths
 
     def forward(self, sentences, joined_tokens=False):
-        if not joined_tokens:
-            sentences = self.join_tokens(sentences)
-        sentences = self.tokenize(sentences, joined_tokens)
+        sentences, lengths = self.tokenize(sentences, joined_tokens)
 
         last_hidden_states = self.transformer(sentences)[0]
 
-        return last_hidden_states, None
+        return self.dropout(last_hidden_states), lengths
